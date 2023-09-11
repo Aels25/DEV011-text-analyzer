@@ -1,22 +1,41 @@
-const analyzer = {  
-  getWordCount: (text) => {
-    //TODO: esta función debe retornar el recuento de palabras que se encuentran en el parámetro `text` de tipo `string`.
+const analyzer = {
+  getWordCount: function(text) {
+    const words = text.split(/\s+/).filter(word => word !== "");
+    return words.length;
   },
-  getCharacterCount: (text) => {
-    //TODO: esta función debe retornar el recuento de caracteres que se encuentran en el parámetro `text` de tipo `string`.
+  getCharacterCount: function(text) {
+    return text.length;
   },
-  getCharacterCountExcludingSpaces: (text) => {
-    //TODO: esta función debe retornar el recuento de caracteres excluyendo espacios y signos de puntuación que se encuentran en el parámetro `text` de tipo `string`.
+  getCharacterCountExcludingSpaces: function(text) {
+    const characters = text.replace(/[^\w]/g, "");
+    return characters.length;
   },
-  getAverageWordLength: (text) => {    
-    //TODO: esta función debe retornar la longitud media de palabras que se encuentran en el parámetro `text` de tipo `string`.
+  getNumberCount: function(text) {
+    const numbers = text.match(/\b\d+(\.\d+)?\b/g);
+    return numbers ? numbers.length : 0;
   },
-  getNumberCount: (text) => {
-    //TODO: esta función debe retornar cúantos números se encuentran en el parámetro `text` de tipo `string`.
+
+  getNumberSum: function(text) {
+    const numbers = text.match(/\b\d+(\.\d+)?\b/g);
+    if (numbers) {
+      let sum = 0; 
+      for (let i = 0; i < numbers.length; i++) {
+        sum += parseFloat(numbers[i]); 
+      }
+      return sum;
+    }
+    return 0;
   },
-  getNumberSum: (text) => {
-    //TODO: esta función debe retornar la suma de todos los números que se encuentran en el parámetro `text` de tipo `string`.
-  },
+  
+  getAverageWordLength: function(text) {
+    const words = text.split(/\s+/).filter(word => word !== "");
+    if (words.length === 0) {
+      return 0;
+    }
+    const totalWordLength = words.reduce((acc, word) => acc + word.length, 0);
+    const averageLength = totalWordLength / words.length;
+    return parseFloat(averageLength.toFixed(2));
+  }
 };
 
 export default analyzer;
